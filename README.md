@@ -57,3 +57,13 @@ O projeto também conta com uma área de denúncia anônima, onde quem ver o ani
 <p>- descrição (String)</p>
 <p>- status (Enum: PENDENTE, IGNORADA, RESGATADO)</p>
 <p>- dataHora (LocalDateTime)</p>
+
+### 📁 Estrutura de Pacotes
+
+- `controller`: controladores REST e web
+- `model`: entidades do domínio (ONG, Cão, Denúncia, etc)
+- `repository`: interfaces para persistência (JPA)
+- `service`: lógica de negócio
+- `dto`: objetos de transporte de dados
+- `config`: configurações gerais do projeto (ex: segurança, CORS)
+- `exception`: tratamento de exceções e validações
