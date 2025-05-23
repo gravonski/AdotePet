@@ -57,8 +57,9 @@ O projeto também conta com uma área de denúncia anônima, onde quem ver o ani
 <p>- descrição (String)</p>
 <p>- status (Enum: PENDENTE, IGNORADA, RESGATADO)</p>
 <p>- dataHora (LocalDateTime)</p>
+<br>
 
-### 📁 Estrutura de Pacotes
+## Estrutura de Pacotes
 
 - `controller`: controladores REST e web
 - `model`: entidades do domínio (ONG, Cão, Denúncia, etc)
@@ -67,3 +68,44 @@ O projeto também conta com uma área de denúncia anônima, onde quem ver o ani
 - `dto`: objetos de transporte de dados
 - `config`: configurações gerais do projeto (ex: segurança, CORS)
 - `exception`: tratamento de exceções e validações
+<br>
+
+## Modelo de Dados
+
+### Entidade: ONG
+- nome
+- email
+- senha
+- CNPJ
+- endereço
+- telefone
+
+Relacionamentos:
+- ONG pode cadastrar vários cães
+- ONG pode receber denúncias
+
+---
+
+### Entidade: Cão
+- nome
+- idade
+- raça
+- porte
+- descrição
+- status (adotado, disponível, etc.)
+- foto
+
+Relacionamentos:
+- Cada cão pertence a uma ONG
+
+---
+
+### Entidade: Denúncia
+- local
+- descrição
+- data/hora
+- status (pendente, resolvida, etc.)
+
+Relacionamentos:
+- Feita por usuário anônimo
+- ONG recebe e gerencia
