@@ -1,4 +1,4 @@
-package com.adotepet;
+package com.andreigravonski.adotepet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
