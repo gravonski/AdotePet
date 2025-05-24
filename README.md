@@ -40,7 +40,7 @@ O projeto também conta com uma área de denúncia anônima, onde quem ver o ani
 <p>- cidade (String)</p>
 <p>- telefone (String)</p>
 <br>
-<h3>CÂO</h3>
+<h3>CÃO</h3>
 <p>- id (Long)</p>
 <p>- nome (String)</p>
 <p>- idade (Int)</p>
