@@ -39,8 +39,11 @@ O projeto também conta com uma área de denúncia anônima, onde quem ver o ani
 <p>- senha (String)</p>
 <p>- cidade (String)</p>
 <p>- telefone (String)</p>
+Relacionamentos:
+- ONG pode cadastrar vários cães
+- ONG pode receber denúncias
 <br>
-<h3>CÂO</h3>
+<h3>CÃO</h3>
 <p>- id (Long)</p>
 <p>- nome (String)</p>
 <p>- idade (Int)</p>
@@ -49,6 +52,8 @@ O projeto também conta com uma área de denúncia anônima, onde quem ver o ani
 <p>- foto (String url)</p>
 <p>- descrição (String)</p>
 <p>- id_ong (Id da ONG)</p>
+Relacionamentos:
+- Cada cão pertence a uma ONG
 <br>
 <h3>DENÚNCIA</h3>
 <p>- id (Long)</p>
@@ -57,6 +62,9 @@ O projeto também conta com uma área de denúncia anônima, onde quem ver o ani
 <p>- descrição (String)</p>
 <p>- status (Enum: PENDENTE, IGNORADA, RESGATADO)</p>
 <p>- dataHora (LocalDateTime)</p>
+Relacionamentos:
+- Feita por usuário anônimo
+- ONG recebe e gerencia
 <br>
 
 ## Estrutura de Pacotes
@@ -69,43 +77,3 @@ O projeto também conta com uma área de denúncia anônima, onde quem ver o ani
 - `config`: configurações gerais do projeto (ex: segurança, CORS)
 - `exception`: tratamento de exceções e validações
 <br>
-
-## Modelo de Dados
-
-### Entidade: ONG
-- nome
-- email
-- senha
-- CNPJ
-- endereço
-- telefone
-
-Relacionamentos:
-- ONG pode cadastrar vários cães
-- ONG pode receber denúncias
-
----
-
-### Entidade: Cão
-- nome
-- idade
-- raça
-- porte
-- descrição
-- status (adotado, disponível, etc.)
-- foto
-
-Relacionamentos:
-- Cada cão pertence a uma ONG
-
----
-
-### Entidade: Denúncia
-- local
-- descrição
-- data/hora
-- status (pendente, resolvida, etc.)
-
-Relacionamentos:
-- Feita por usuário anônimo
-- ONG recebe e gerencia
