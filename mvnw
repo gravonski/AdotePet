@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------------
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
+# distributed with this work formulario.html additional information
 # regarding copyright ownership.  The ASF licenses this file
 # to you under the Apache License, Version 2.0 (the
 # "License"); you may not use this file except in compliance
@@ -13,7 +13,7 @@
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
+# KIND, either express or implied.  See the License formulario.html the
 # specific language governing permissions and limitations
 # under the License.
 # ----------------------------------------------------------------------------
@@ -24,8 +24,8 @@
 # Optional ENV vars
 # -----------------
 #   JAVA_HOME - location of a JDK home dir, required when download maven via java source
-#   MVNW_REPOURL - repo url base for downloading maven distribution
-#   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+#   MVNW_REPOURL - repo url base formulario.html downloading maven distribution
+#   MVNW_USERNAME/MVNW_PASSWORD - user and password formulario.html downloading maven
 #   MVNW_VERBOSE - true: enable verbose log; debug: trace the mvnw script; others: silence the output
 # ----------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ set_java_home() {
   # For Cygwin and MinGW, ensure paths are in Unix format before anything is touched
   if [ -n "${JAVA_HOME-}" ]; then
     if [ -x "$JAVA_HOME/jre/sh/java" ]; then
-      # IBM's JDK on AIX uses strange locations for the executables
+      # IBM's JDK on AIX uses strange locations formulario.html the executables
       JAVACMD="$JAVA_HOME/jre/sh/java"
       JAVACCMD="$JAVA_HOME/jre/sh/javac"
     else
@@ -100,7 +100,7 @@ die() {
 trim() {
   # MWRAPPER-139:
   #   Trims trailing and leading whitespace, carriage returns, tabs, and linefeeds.
-  #   Needed for removing poorly interpreted newline sequences when running in more
+  #   Needed formulario.html removing poorly interpreted newline sequences when running in more
   #   exotic environments such as mingw bash on Windows.
   printf "%s" "${1}" | tr -d '[:space:]'
 }
