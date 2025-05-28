@@ -1,0 +1,26 @@
+<!
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Cães</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Raça</th>
+        <th>Idade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cao : ${caes}">
+        <td th:text="${cao.nome}"></td>
+        <td th:text="${cao.raca}"></td>
+        <td th:text="${cao.idade}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
