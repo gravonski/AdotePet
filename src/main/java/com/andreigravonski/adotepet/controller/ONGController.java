@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/ong")
@@ -26,8 +27,9 @@ public class ONGController {
     }
 
     @PostMapping("/salvar")
-    public String salvarONG(ONG ong) {
+    public String salvarONG(ONG ong, RedirectAttributes redirectAttributes) {
         ongService.salvarONG(ong);
+        redirectAttributes.addFlashAttribute("mensagem", "ONG salva com sucesso!");
         return "redirect:/ong/listar";
     }
 }

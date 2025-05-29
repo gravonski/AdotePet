@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CachorroService {
     List<Cachorro> buscarTodos();
-    public void salvar(Cachorro cachorro);
+    void salvar(Cachorro cachorro);
 }

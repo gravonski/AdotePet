@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/caes")
@@ -28,8 +29,9 @@ public class CachorroController {
     }
 
     @PostMapping("/salvar")
-    public String salvarCao(@ModelAttribute Cachorro cachorro) {
+    public String salvarCao(@ModelAttribute Cachorro cachorro, RedirectAttributes redirectAttributes) {
         cachorroService.salvar(cachorro);
+        redirectAttributes.addFlashAttribute("mensagem", "Cão salvo com sucesso!");
         return "redirect:/caes/listar";
     }
 }

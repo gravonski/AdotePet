@@ -6,6 +6,9 @@
     <title>Lista de Denúncias</title>
 </head>
 <body>
+<div th:if="${mensagem}" class="alert alert-success">
+    <p th:text="${mensagem}"></p>
+</div>
 <table>
     <thead>
     <tr>
