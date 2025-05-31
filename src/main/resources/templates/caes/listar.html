@@ -1,1 +1,35 @@
-<h1>Pagina pertence à entidade Cachorro</h1>
+<!
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Cães</title>
+</head>
+<body>
+<div th:if="${mensagem}" class="alert alert-success">
+    <p th:text="${mensagem}"></p>
+</div>
+<a href="/caes/novo">Cadastrar Novo Cão</a>
+<table>
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Raça</th>
+        <th>Idade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cao : ${caes}">
+        <td th:text="${cao.nome}"></td>
+        <td th:text="${cao.raca}"></td>
+        <td th:text="${cao.idade}"></td>
+        <td>
+            <a th:href="@{/caes/editar/{id}(id=${cao.id})}">Editar</a>
+            |
+            <a th:href="@{/caes/deletar/{id}(id=${cao.id})}" onclick="return confirm('Tem certeza que deseja deletar?')">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

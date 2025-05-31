@@ -29,7 +29,7 @@ public class CachorroController {
     public String editarCaes(@PathVariable Long id, Model model) {
         Cachorro cachorro = cachorroService.buscarPorId(id);
         model.addAttribute("cao", cachorro);
-        return "formularioCao";
+        return "caes/formulario";
     }
 
     @PostMapping("/salvar")
@@ -40,3 +40,4 @@ public class CachorroController {
     }
 }
 
+ 
