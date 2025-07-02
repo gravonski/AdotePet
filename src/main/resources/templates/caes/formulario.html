@@ -5,7 +5,7 @@
     <title>Cadastro de Cão</title>
 </head>
 <body>
-<h1 th:text="${#fields.hasErrors()} ? 'Editar Cão' : 'Cadastrar Cão'"></h1>
+<h1>Cadastrar / Editar Cão</h1>
 
 <form th:action="@{/caes/salvar}" th:object="${cao}" method="post">
     <input type="hidden" th:field="*{id}" />

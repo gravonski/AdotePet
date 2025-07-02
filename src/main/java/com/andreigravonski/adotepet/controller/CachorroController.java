@@ -2,7 +2,6 @@ package com.andreigravonski.adotepet.controller;
 
 import com.andreigravonski.adotepet.model.Cachorro;
 import com.andreigravonski.adotepet.service.CachorroService;
-import com.andreigravonski.adotepet.service.CachorroSeviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +24,12 @@ public class CachorroController {
         return "caes/listar";
     }
 
+    @GetMapping("/novo")
+    public String mostrarFormularioDeCadastro(Model model) {
+        model.addAttribute("cao", new Cachorro());
+        return "caes/formulario";
+    }
+
     @GetMapping("/editar/{id}")
     public String editarCaes(@PathVariable Long id, Model model) {
         Cachorro cachorro = cachorroService.buscarPorId(id);
@@ -40,4 +45,3 @@ public class CachorroController {
     }
 }
 
- 
