@@ -21,10 +21,14 @@ public class CachorroSeviceImpl implements CachorroService{
                 .orElseThrow(() -> new RuntimeException("Cão não encontrado"));
     }
 
-
     @Override
     public void salvar(Cachorro cachorro) {
         cachorroRepository.save(cachorro);
+    }
+
+    @Override
+    public void deletarPorId(Long id) {
+        cachorroRepository.deleteById(id);
     }
 
     @Autowired

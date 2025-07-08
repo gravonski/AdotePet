@@ -5,7 +5,8 @@ import com.andreigravonski.adotepet.model.ONG;
 import java.util.List;
 
 public interface ONGService {
-    List<ONG> listarONG();
-
-    public void salvarONG(ONG ong);
+    List<ONG> buscarONG();
+    void salvarONG(ONG ong);
+    ONG buscarPorId(Long id);
+    void deletarPorId(Long id);
 }

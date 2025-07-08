@@ -43,5 +43,12 @@ public class CachorroController {
         redirectAttributes.addFlashAttribute("mensagem", "Cão salvo com sucesso!");
         return "redirect:/caes/listar";
     }
+
+    @GetMapping("/deletar/{id}")
+    public String deletarCao(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        cachorroService.deletarPorId(id);
+        redirectAttributes.addFlashAttribute("mensagem", "Cão deletado com sucesso!");
+        return "redirect:/caes/listar";
+    }
 }
 

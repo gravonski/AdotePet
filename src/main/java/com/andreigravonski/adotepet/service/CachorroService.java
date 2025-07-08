@@ -8,4 +8,5 @@ public interface CachorroService {
     List<Cachorro> buscarTodos();
     void salvar(Cachorro cachorro);
     Cachorro buscarPorId(Long id);
+    void deletarPorId(Long id);
 }
