@@ -23,7 +23,12 @@
     </thead>
     <tbody>
     <tr th:each="denuncia : ${denuncias}">
-        <td th:text="${denuncia.fotoUrl}"></td>
+        <td>
+            <img th:if="${denuncia.fotoUrl != null && !denuncia.fotoUrl.isEmpty()}"
+                 th:src="${denuncia.fotoUrl}"
+                 alt="Imagem da Denúncia"
+                 width="150" />
+        </td>
         <td th:text="${denuncia.localizacao}"></td>
         <td th:text="${denuncia.descricao}"></td>
         <td th:datetime-local="${denuncia.dataHora}"></td>
