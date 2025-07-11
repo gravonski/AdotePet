@@ -1,1 +1,40 @@
-<h1>Pagina pertence à entidade Denuncia</h1>
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Denúncias</title>
+</head>
+<body>
+<h1>Denúncias Cadastradas</h1>
+
+<div th:if="${mensagem}" th:text="${mensagem}"></div>
+
+<p><a th:href="@{/denuncias/novo}">Cadastrar nova denúncia</a></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Foto</th>
+        <th>Localização</th>
+        <th>Descrição</th>
+        <th>Data e Hora</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="denuncia : ${denuncias}">
+        <td th:text="${denuncia.fotoUrl}"></td>
+        <td th:text="${denuncia.localizacao}"></td>
+        <td th:text="${denuncia.descricao}"></td>
+        <td th:datetime-local="${denuncia.dataHora}"></td>
+        <td th:text="${denuncia.status}"></td>
+        <td>
+            <a th:href="@{/denuncias/editar/{id}(id=${denuncia.id})}">Editar</a>
+            |
+            <a th:href="@{/denuncias/deletar/{id}(id=${denuncia.id})}" onclick="return confirm('Tem certeza que deseja deletar esta ONG?')">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

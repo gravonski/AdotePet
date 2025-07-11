@@ -1,1 +1,43 @@
-<h1>Pagina pertence à entidade Denuncia</h1>
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Denúncias</title>
+</head>
+<body>
+<h1>Cadastrar / Editar Denúncia</h1>
+
+<form th:action="@{/denuncias/salvar}" th:object="${denuncia}" method="post">
+
+    <input type="hidden" th:field="*{id}" />
+
+    <div>
+        <label for="fotoUrl">Foto(URL):</label>
+        <input type="text" id="fotoUrl" th:field="*{fotoUrl}" />
+    </div>
+    <div>
+        <label for="localizacao">Localização:</label>
+        <input type="text" id="localizacao" th:field="*{localizacao}" />
+    </div>
+    <div>
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" th:field="*{descricao}" />
+    </div>
+    <div>
+        <label for="dataHora">Data e Hora:</label>
+        <input type="datetime-local" id="dataHora" th:field="*{dataHora}" />
+    </div>
+    <div>
+        <label for="status">Status:</label>
+        <select id="status" th:field="*{status}">
+            <option th:each="s : ${statusOptions}"
+                    th:value="${s}"
+                    th:text="${s.toString()}">
+            </option>
+        </select>
+    </div>
+
+    <button type="submit">Salvar</button>
+</form>
+</body>
+</html>

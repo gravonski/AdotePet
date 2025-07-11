@@ -18,13 +18,16 @@ public class Denuncia {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
 
+@Lob
+@Column
 private String fotoUrl;
 
 private String localizacao;
 
 private String descricao;
 
-private Enum status;
+@Enumerated(EnumType.STRING)
+private StatusDenuncia status;
 
 private LocalDateTime dataHora;
 }
