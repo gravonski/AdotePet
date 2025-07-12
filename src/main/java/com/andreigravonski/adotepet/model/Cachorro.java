@@ -7,7 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@Data
+@EqualsAndHashCode(exclude = "ong")
+@ToString(exclude = "ong")
 @Entity
 @Table(name = "tb_cachorros")
 public class Cachorro {

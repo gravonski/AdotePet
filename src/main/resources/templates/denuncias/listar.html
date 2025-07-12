@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
 <head>
     <meta charset="UTF-8">
     <title>Lista de Denúncias</title>
 </head>
 <body>
+<section layout:fragment="content">
 <h1>Denúncias Cadastradas</h1>
 
-<div th:if="${mensagem}" th:text="${mensagem}"></div>
+<div th:if="${mensagem}" th:text="${mensagem}" class="alert alert-success"></div>
 
-<p><a th:href="@{/denuncias/novo}">Cadastrar nova denúncia</a></p>
+<p><a th:href="@{/denuncias/novo}" class="btn btn-primary">Cadastrar nova denúncia</a></p>
 
-<table>
-    <thead>
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
     <tr>
         <th>Foto</th>
         <th>Localização</th>
@@ -34,12 +38,13 @@
         <td th:datetime-local="${denuncia.dataHora}"></td>
         <td th:text="${denuncia.status}"></td>
         <td>
-            <a th:href="@{/denuncias/editar/{id}(id=${denuncia.id})}">Editar</a>
+            <a th:href="@{/denuncias/editar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-warning">Editar</a>
             |
-            <a th:href="@{/denuncias/deletar/{id}(id=${denuncia.id})}" onclick="return confirm('Tem certeza que deseja deletar esta ONG?')">Deletar</a>
+            <a th:href="@{/denuncias/deletar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta ONG?')">Deletar</a>
         </td>
     </tr>
     </tbody>
 </table>
+</section>
 </body>
 </html>

@@ -5,13 +5,14 @@ import lombok.*;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@Data
+@EqualsAndHashCode(exclude = "cachorros")
+@ToString(exclude = "cachorros")
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table (name = "tb_ongs")
+@Table(name = "tb_ongs")
 public class ONG {
 
 @Id

@@ -1,35 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
     <title>Formulário de Denúncias</title>
 </head>
 <body>
+<section layout:fragment="content">
 <h1>Cadastrar / Editar Denúncia</h1>
 
 <form th:action="@{/denuncias/salvar}" th:object="${denuncia}" method="post">
 
     <input type="hidden" th:field="*{id}" />
 
-    <div>
-        <label for="fotoUrl">Foto(URL):</label>
-        <input type="text" id="fotoUrl" th:field="*{fotoUrl}" />
+    <div class="mb-3">
+        <label for="fotoUrl" class="form-label">Foto(URL):</label>
+        <input type="text" id="fotoUrl" th:field="*{fotoUrl}" class="form-label"/>
     </div>
-    <div>
-        <label for="localizacao">Localização:</label>
-        <input type="text" id="localizacao" th:field="*{localizacao}" />
+    <div class="mb-3">
+        <label for="localizacao" class="form-label">Localização:</label>
+        <input type="text" id="localizacao" th:field="*{localizacao}" class="form-label"/>
     </div>
-    <div>
-        <label for="descricao">Descrição:</label>
-        <input type="text" id="descricao" th:field="*{descricao}" />
+    <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição:</label>
+        <input type="text" id="descricao" th:field="*{descricao}" class="form-label"/>
     </div>
-    <div>
-        <label for="dataHora">Data e Hora:</label>
-        <input type="datetime-local" id="dataHora" th:field="*{dataHora}" />
+    <div class="mb-3">
+        <label for="dataHora" class="form-label">Data e Hora:</label>
+        <input type="datetime-local" id="dataHora" th:field="*{dataHora}" class="form-label"/>
     </div>
-    <div>
-        <label for="status">Status:</label>
-        <select id="status" th:field="*{status}">
+    <div class="mb-3">
+        <label for="status" class="form-label">Status:</label>
+        <select id="status" th:field="*{status}" class="form-label">
             <option th:each="s : ${statusOptions}"
                     th:value="${s}"
                     th:text="${s.toString()}">
@@ -37,7 +39,8 @@
         </select>
     </div>
 
-    <button type="submit">Salvar</button>
+    <button type="submit" class="btn btn-success">Salvar</button>
 </form>
+</section>
 </body>
 </html>
