@@ -36,8 +36,6 @@ public class CachorroSeviceImpl implements CachorroService{
     @Override
     public void deletarPorId(Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("INFORMAÇÕES DE AUTENTICAÇÃO: " + authentication);
-        System.out.println("NOME DO USUÁRIO LOGADO: " + authentication.getName());
         Cachorro cachorro = cachorroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cão de ID " + id + " não encontrado!"));
         Long IdDono = cachorro.getOng().getId();
