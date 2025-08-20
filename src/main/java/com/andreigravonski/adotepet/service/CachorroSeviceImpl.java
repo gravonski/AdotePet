@@ -8,8 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-
+import org.springframework.security.access.AccessDeniedException;
 import java.util.List;
+
 
 @Service
 public class CachorroSeviceImpl implements CachorroService{
@@ -37,7 +38,14 @@ public class CachorroSeviceImpl implements CachorroService{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("INFORMAÇÕES DE AUTENTICAÇÃO: " + authentication);
         System.out.println("NOME DO USUÁRIO LOGADO: " + authentication.getName());
-        cachorroRepository.deleteById(id);
+        Cachorro cachorro = cachorroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cão de ID " + id + " não encontrado!"));
+        Long IdDono = cachorro.getOng().getId();
+        if (!authentication.getName().equals("user") ||  !IdDono.equals(1L)) {
+            throw new AccessDeniedException ("Este usuário não pode altetar esse cão");
+        } else {
+            cachorroRepository.deleteById(id);
+        }
     }
 
     @Autowired
