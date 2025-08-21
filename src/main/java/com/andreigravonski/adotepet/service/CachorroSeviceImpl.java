@@ -3,6 +3,7 @@ package com.andreigravonski.adotepet.service;
 import com.andreigravonski.adotepet.model.Cachorro;
 import com.andreigravonski.adotepet.repository.CachorroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,16 +35,15 @@ public class CachorroSeviceImpl implements CachorroService{
     }
 
     @Override
+    @PreAuthorize("authentication.name == 'user'")
     public void deletarPorId(Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Cachorro cachorro = cachorroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cão de ID " + id + " não encontrado!"));
         Long IdDono = cachorro.getOng().getId();
-        if (!authentication.getName().equals("user") ||  !IdDono.equals(1L)) {
-            throw new AccessDeniedException ("Este usuário não pode altetar esse cão");
-        } else {
-            cachorroRepository.deleteById(id);
+        if (!IdDono.equals(1L)) {
+            throw new AccessDeniedException ("Este usuário não pode alterar esse cão");
         }
+        cachorroRepository.deleteById(id);
     }
 
     @Autowired
