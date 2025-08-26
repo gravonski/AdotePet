@@ -4,11 +4,10 @@ import com.andreigravonski.adotepet.model.Cachorro;
 import com.andreigravonski.adotepet.repository.CachorroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.core.Authentication;
 import org.springframework.security.access.AccessDeniedException;
 import java.util.List;
 
@@ -37,10 +36,12 @@ public class CachorroSeviceImpl implements CachorroService{
     @Override
     @PreAuthorize("authentication.name == 'user'")
     public void deletarPorId(Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String usernameLogado = auth.getName();
         Cachorro cachorro = cachorroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cão de ID " + id + " não encontrado!"));
         Long IdDono = cachorro.getOng().getId();
-        if (!IdDono.equals(1L)) {
+        if (!usernameLogado.equals("user") || !IdDono.equals(1L)) {
             throw new AccessDeniedException ("Este usuário não pode alterar esse cão");
         }
         cachorroRepository.deleteById(id);
