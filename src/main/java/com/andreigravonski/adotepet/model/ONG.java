@@ -2,7 +2,10 @@ package com.andreigravonski.adotepet.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -13,7 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_ongs")
-public class ONG {
+public class ONG implements UserDetails {
+
 
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +35,19 @@ private String telefone;
 
 @OneToMany(mappedBy = "ong")
 private List<Cachorro> cachorros;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
 }
