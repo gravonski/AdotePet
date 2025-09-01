@@ -11,5 +11,4 @@ public class AdotepetApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AdotepetApplication.class, args);
 	}
-
 }

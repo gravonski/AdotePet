@@ -27,6 +27,7 @@ private String nome;
 
 private String email;
 
+@Column(length = 60)
 private String senha;
 
 private String cidade;
