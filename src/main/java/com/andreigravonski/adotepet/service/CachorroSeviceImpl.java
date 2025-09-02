@@ -34,16 +34,8 @@ public class CachorroSeviceImpl implements CachorroService{
     }
 
     @Override
-    @PreAuthorize("authentication.name == 'user'")
+    @PreAuthorize("@ongSecurityService.podeGerenciarCao(authentication, #id)")
     public void deletarPorId(Long id) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String usernameLogado = auth.getName();
-        Cachorro cachorro = cachorroRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cão de ID " + id + " não encontrado!"));
-        Long IdDono = cachorro.getOng().getId();
-        if (!usernameLogado.equals("user") || !IdDono.equals(1L)) {
-            throw new AccessDeniedException ("Este usuário não pode alterar esse cão");
-        }
         cachorroRepository.deleteById(id);
     }
 
