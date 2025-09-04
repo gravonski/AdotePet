@@ -41,4 +41,10 @@ public class OngSecurityService {
 
         return ongLogada.getId().equals(idDono);
     }
+
+    public boolean podeGerenciarOng(Authentication authentication, Long idDaOngAlvo) {
+        ONG ongLogada = (ONG) authentication.getPrincipal();
+
+        return ongLogada.getId().equals(idDaOngAlvo);
+    }
 }

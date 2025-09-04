@@ -4,6 +4,7 @@ import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.repository.ONGRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +25,13 @@ public class ONGServiceImpl implements ONGService {
     }
 
     @Override
+    @PreAuthorize("#ong.id == null or @ongSecurityService.podeGerenciarOng(authentication, #ong.id)")
     public void salvarONG(ONG ong) {
         ongRepository.save(ong);
     }
 
     @Override
+    @PreAuthorize("@ongSecurityService.podeGerenciarOng(authentication, #id)")
     public void deletarPorId(Long id) {
         ongRepository.deleteById(id);
     }
