@@ -29,6 +29,7 @@ public class CachorroSeviceImpl implements CachorroService{
     }
 
     @Override
+    @PreAuthorize("#cachorro.id == null or @ongSecurityService.podeGerenciarCao(authentication, #cachorro.id)")
     public void salvar(Cachorro cachorro) {
         cachorroRepository.save(cachorro);
     }
