@@ -1,6 +1,7 @@
 package com.andreigravonski.adotepet.service;
 
 import com.andreigravonski.adotepet.model.Cachorro;
+import com.andreigravonski.adotepet.model.Denuncia;
 import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.repository.CachorroRepository;
 import com.andreigravonski.adotepet.repository.ONGRepository;
@@ -47,4 +48,15 @@ public class OngSecurityService {
 
         return ongLogada.getId().equals(idDaOngAlvo);
     }
-}
+
+    /*public boolean podeGerenciarDenuncia(Authentication authentication, Long idDaDenuncia) {
+
+        Denuncia denuncia = (Denuncia) authentication.getPrincipal();
+
+        if (denuncia.getId().equals(idDaDenuncia)) {
+            return ;
+        }
+
+        return
+     */
+    }
