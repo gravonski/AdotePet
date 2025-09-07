@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Denúncia Enviada</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="alert alert-success">
+        <h4 class="alert-heading">Operação Realizada com Sucesso!</h4>
+        <p th:text="${mensagemSucesso}"></p>
+        <hr>
+        <p class="mb-0">Sua colaboração é muito importante para nós.</p>
+    </div>
+    <a th:href="@{/static}" class="btn btn-primary">Voltar para a Página Inicial</a>
+</section>
+</body>
+</html>

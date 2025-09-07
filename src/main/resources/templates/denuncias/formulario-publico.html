@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Registrar Denúncia</title>
+</head>
+<body>
+    <section layout:fragment="content">
+        <h1>Registrar Denúncia de Animal Abandonado</h1>
+
+        <form th:action="@{/denunciar/salvar}" th:object="${denuncia}" method="post">
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <div class="mb-3">
+                <label for="localizacao" class="form-label">Localização Aproximada:</label>
+                <input type="text" id="localizacao" th:field="*{localizacao}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição:</label>
+                <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success">Enviar Denúncia</button>
+        </form>
+    </section>
+</body>
+</html>
