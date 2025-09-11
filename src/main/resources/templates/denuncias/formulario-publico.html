@@ -9,7 +9,7 @@
     <section layout:fragment="content">
         <h1>Registrar Denúncia de Animal Abandonado</h1>
 
-        <form th:action="@{/denunciar/salvar}" th:object="${denuncia}" method="post">
+        <form th:action="@{/denuncias/denunciar/salvar}" th:object="${denuncia}" method="post">
 
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 

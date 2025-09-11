@@ -9,5 +9,6 @@ public interface DenunciaService {
      void salvar(Denuncia denuncia);
      Denuncia buscarPorId(Long id);
      void deletarPorId(Long id);
+    Denuncia salvarDenunciaPublica(Denuncia denuncia);
 
 }

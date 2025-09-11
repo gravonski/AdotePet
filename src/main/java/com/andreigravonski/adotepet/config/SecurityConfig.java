@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -22,14 +23,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable()) // Mantido desativado por enquanto para depuração
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/home", "/login", "/denunciar", "/denunciar/salvar").permitAll()
+                        // Regra 1: Permite acesso a recursos estáticos.
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+
+                        // Regra 2: Permite acesso PÚBLICO via GET a estas URLs.
+                        .requestMatchers(HttpMethod.GET, "/", "/home", "/denuncias/denunciar", "/denuncias/denuncia-sucesso").permitAll()
+
+                        // Regra 3: Permite acesso PÚBLICO via POST APENAS a esta URL.
+                        .requestMatchers(HttpMethod.POST, "/denuncias/denunciar/salvar").permitAll()
+
+                        // Regra 4: Qualquer outra requisição, de qualquer tipo, exige autenticação.
                         .anyRequest().authenticated()
                 )
+                // PEÇAS FALTANTES REINSERIDAS AQUI
                 .formLogin(form -> form
                         .defaultSuccessUrl("/ongs/listar", true)
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout").permitAll()
                 );
-
         return http.build();
     }
 

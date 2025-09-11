@@ -1,6 +1,7 @@
 package com.andreigravonski.adotepet.service;
 
 import com.andreigravonski.adotepet.model.Denuncia;
+import com.andreigravonski.adotepet.model.StatusDenuncia;
 import com.andreigravonski.adotepet.repository.DenunciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,6 +33,13 @@ public class DenunciaServiceImpl implements DenunciaService {
     @PreAuthorize("hasRole('ADMIN')")
     public void deletarPorId(Long id){
         denunciaRepository.deleteById(id);
+    }
+
+    @Override
+    public Denuncia salvarDenunciaPublica(Denuncia denuncia) {
+        // Regra de negócio: Toda denúncia pública começa como PENDENTE
+        denuncia.setStatus(StatusDenuncia.PENDENTE);
+        return denunciaRepository.save(denuncia);
     }
 
     @Autowired

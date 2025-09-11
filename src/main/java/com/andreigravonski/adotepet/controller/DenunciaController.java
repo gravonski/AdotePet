@@ -58,25 +58,22 @@ public class DenunciaController {
     @GetMapping("/denunciar")
     public String mostrarFormularioDenunciaPublico(Model model) {
         model.addAttribute("denuncia", new Denuncia());
-        // Não precisamos mais dos StatusOptions aqui se a denúncia sempre começa como PENDENTE
         return "denuncias/formulario-publico";
     }
 
-
+ 
     @GetMapping("/denuncia-sucesso")
     public String mostrarPaginaDeSucesso() {
-        return "denuncias/denuncia-sucesso"; // O caminho para o seu arquivo HTML
+        return "denuncias/denuncia-sucesso";
     }
 
     @PostMapping("/denunciar/salvar")
     public String salvarDenunciaPublica(@ModelAttribute Denuncia denuncia, RedirectAttributes redirectAttributes) {
-        // Regra de negócio: Toda denúncia pública começa como PENDENTE
-        denuncia.setStatus(StatusDenuncia.PENDENTE);
-        denunciaService.salvar(denuncia);
+        denunciaService.salvarDenunciaPublica(denuncia); // Chamando o novo metodo publico
 
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Sua denúncia foi registrada com sucesso! Agradecemos sua colaboração.");
         return "redirect:/denuncia-sucesso";
     }
-
+    
 
 }
