@@ -23,7 +23,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Mantido desativado por enquanto para depuração
+                // CSRF agora está ATIVADO por padrão (removemos a linha .disable())
                 .authorizeHttpRequests(authorize -> authorize
                         // Regra 1: Permite acesso a recursos estáticos.
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
@@ -37,7 +37,6 @@ public class SecurityConfig {
                         // Regra 4: Qualquer outra requisição, de qualquer tipo, exige autenticação.
                         .anyRequest().authenticated()
                 )
-                // PEÇAS FALTANTES REINSERIDAS AQUI
                 .formLogin(form -> form
                         .defaultSuccessUrl("/ongs/listar", true)
                 )

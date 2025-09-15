@@ -72,7 +72,7 @@ public class DenunciaController {
         denunciaService.salvarDenunciaPublica(denuncia); // Chamando o novo metodo publico
 
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Sua denúncia foi registrada com sucesso! Agradecemos sua colaboração.");
-        return "redirect:/denuncia-sucesso";
+        return "redirect:/denuncias/denuncia-sucesso";
     }
     
 

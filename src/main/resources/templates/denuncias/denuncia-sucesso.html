@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Denúncia Enviada com Sucesso</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="alert alert-success mt-4">
+        <h4 class="alert-heading">Denúncia Registrada!</h4>
+        <p th:if="${mensagemSucesso}" th:text="${mensagemSucesso}"></p>
+        <hr>
+        <p class="mb-0">As ONGs da região serão notificadas. Obrigado por ajudar.</p>
+    </div>
+    <a th:href="@{/}" class="btn btn-primary mt-3">Voltar à Página Inicial</a>
+</section>
+</body>
+</html>
