@@ -18,25 +18,20 @@
 <table class="table table-striped table-hover">
     <thead class="table-dark">
     <tr>
-        <th>Foto</th>
-        <th>Localização</th>
+        <th>Id da Denúncia</th>
         <th>Descrição</th>
-        <th>Data e Hora</th>
+        <th>Localização</th>
         <th>Status</th>
+        <th>Ações</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="denuncia : ${denuncias}">
-        <td>
-            <img th:if="${denuncia.fotoUrl != null && !denuncia.fotoUrl.isEmpty()}"
-                 th:src="${denuncia.fotoUrl}"
-                 alt="Imagem da Denúncia"
-                 width="150" />
-        </td>
-        <td th:text="${denuncia.localizacao}"></td>
+        <td th:text="${denuncia.id}"></td>
         <td th:text="${denuncia.descricao}"></td>
-        <td th:datetime-local="${denuncia.dataHora}"></td>
+        <td th:text="${denuncia.localizacao}"></td>
         <td th:text="${denuncia.status}"></td>
+        <td></td>
         <td>
             <a th:href="@{/denuncias/editar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-warning">Editar</a>
             |
