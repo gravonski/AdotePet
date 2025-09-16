@@ -3,6 +3,7 @@ package com.andreigravonski.adotepet.controller;
 import com.andreigravonski.adotepet.model.Denuncia;
 import com.andreigravonski.adotepet.model.StatusDenuncia;
 import com.andreigravonski.adotepet.service.DenunciaService;
+import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,6 +75,19 @@ public class DenunciaController {
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Sua denúncia foi registrada com sucesso! Agradecemos sua colaboração.");
         return "redirect:/denuncias/denuncia-sucesso";
     }
-    
 
+    @GetMapping("/ignorar/{id}")
+    public String resgatarDenuncia(@PathVariable Long id) {
+        Denuncia denuncia = denunciaService.buscarPorId(id);
+        denuncia.setStatus(StatusDenuncia.RESGATADO);
+        denunciaService.salvar(denuncia);
+        return "redirect:/denuncias/listar";
+    }
+    
+    public String ignorarDenuncia (@PathVariable Long id) {
+        Denuncia denuncia = denunciaService.buscarPorId(id);
+        denuncia.setStatus(StatusDenuncia.IGNORADO);
+        denunciaService.salvar(denuncia);
+        return "redirect:/denuncias/listar";
+    }
 }
