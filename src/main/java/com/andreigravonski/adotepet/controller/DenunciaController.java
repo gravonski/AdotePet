@@ -76,14 +76,15 @@ public class DenunciaController {
         return "redirect:/denuncias/denuncia-sucesso";
     }
 
-    @GetMapping("/ignorar/{id}")
+    @GetMapping("/resgatar/{id}")
     public String resgatarDenuncia(@PathVariable Long id) {
         Denuncia denuncia = denunciaService.buscarPorId(id);
         denuncia.setStatus(StatusDenuncia.RESGATADO);
         denunciaService.salvar(denuncia);
         return "redirect:/denuncias/listar";
     }
-    
+
+    @GetMapping("/ignorar/{id}")
     public String ignorarDenuncia (@PathVariable Long id) {
         Denuncia denuncia = denunciaService.buscarPorId(id);
         denuncia.setStatus(StatusDenuncia.IGNORADO);

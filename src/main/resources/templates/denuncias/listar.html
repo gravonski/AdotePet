@@ -32,8 +32,8 @@
         <td th:text="${denuncia.localizacao}"></td>
         <td th:text="${denuncia.status}"></td>
         <td>
-            <a href="@{/denuncias/resgatar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-sucess">Resgatar</a>
-            <a href="@{/denuncias/ignorar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-secondary">Ignorar</a>
+            <a th:href="@{/denuncias/resgatar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-sucess">Resgatar</a>
+            <a th:href="@{/denuncias/ignorar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-secondary">Ignorar</a>
         </td>
         <td>
             <a th:href="@{/denuncias/editar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-warning">Editar</a>
