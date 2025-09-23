@@ -29,10 +29,10 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
 
                         // Regra 2: Permite acesso PÚBLICO via GET a estas URLs.
-                        .requestMatchers(HttpMethod.GET, "/", "/home", "/denuncias/denunciar", "/denuncias/denuncia-sucesso").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/home", "/denuncias/denunciar", "/denuncias/denuncia-sucesso", "/registro").permitAll()
 
                         // Regra 3: Permite acesso PÚBLICO via POST APENAS a esta URL.
-                        .requestMatchers(HttpMethod.POST, "/denuncias/denunciar/salvar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/denuncias/denunciar/salvar", "/registro").permitAll()
 
                         // Regra 4: Qualquer outra requisição, de qualquer tipo, exige autenticação.
                         .anyRequest().authenticated()

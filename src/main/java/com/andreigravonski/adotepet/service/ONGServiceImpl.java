@@ -5,13 +5,29 @@ import com.andreigravonski.adotepet.repository.ONGRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.andreigravonski.adotepet.repository.RoleRepository;
+import com.andreigravonski.adotepet.model.Role;
+import com.andreigravonski.adotepet.repository.RoleRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import java.util.Set;
 
 import java.util.List;
 
 @Slf4j
 @Service
 public class ONGServiceImpl implements ONGService {
+
+    private final ONGRepository ongRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
+
+    public ONGServiceImpl(ONGRepository ongRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+        this.ongRepository = ongRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public List<ONG> buscarONG() {
@@ -36,6 +52,18 @@ public class ONGServiceImpl implements ONGService {
         ongRepository.deleteById(id);
     }
 
-    @Autowired
-    private ONGRepository ongRepository;
+    @Override
+    public void registrarNovaOng(ONG ong) {
+        // Passo 1: Criptografar a senha antes de salvar
+        String senhaCriptografada = passwordEncoder.encode(ong.getPassword());
+        ong.setSenha(senhaCriptografada);
+
+        // Passo 2: Encontrar e associar o papel padrão de "ONG"
+        Role ongRole = roleRepository.findByNome("ROLE_ONG"); // Você precisará criar este método no RoleRepository
+        ong.setRoles(Set.of(ongRole));
+
+        // Passo 3: Salvar a ONG completa e segura no banco
+        ongRepository.save(ong);
+    }
+
 }

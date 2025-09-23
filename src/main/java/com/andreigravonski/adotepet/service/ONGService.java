@@ -9,4 +9,5 @@ public interface ONGService {
     void salvarONG(ONG ong);
     ONG buscarPorId(Long id);
     void deletarPorId(Long id);
+    void registrarNovaOng(ONG ong);
 }
