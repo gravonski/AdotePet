@@ -1,13 +1,17 @@
 package com.andreigravonski.adotepet.controller;
 
 import com.andreigravonski.adotepet.model.Cachorro;
+import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.service.CachorroService;
 import com.andreigravonski.adotepet.service.ONGService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/caes")
@@ -21,8 +25,10 @@ public class CachorroController {
     }
 
     @GetMapping("/listar")
-    public String listarCaes(Model model) {
-        model.addAttribute ("caes", cachorroService.buscarTodos());
+    public String listarCaes(Model model, Authentication authentication) {
+        ONG ongLogada = (ONG) authentication.getPrincipal();
+        List<Cachorro> caesDaOng = cachorroService.buscarPorOng(ongLogada);
+        model.addAttribute ("caes", caesDaOng);
         return "caes/listar";
     }
 

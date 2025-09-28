@@ -1,6 +1,7 @@
 package com.andreigravonski.adotepet.service;
 
 import com.andreigravonski.adotepet.model.Cachorro;
+import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.repository.CachorroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +39,11 @@ public class CachorroSeviceImpl implements CachorroService{
     @PreAuthorize("@ongSecurityService.podeGerenciarCao(authentication, #id)")
     public void deletarPorId(Long id) {
         cachorroRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Cachorro> buscarPorOng(ONG ong) {
+        return cachorroRepository.findAllByOng(ong);
     }
 
     @Autowired
