@@ -24,6 +24,8 @@ public class CachorroSeviceImpl implements CachorroService{
         return cachorroRepository.findAll();
     }
 
+    @Override
+    @PreAuthorize("@ongSecurityService.podeGerenciarCao(authentication, #id)")
     public Cachorro buscarPorId(Long id) {
         return cachorroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cão não encontrado"));
