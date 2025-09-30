@@ -1,5 +1,6 @@
 package com.andreigravonski.adotepet.service;
 
+import com.andreigravonski.adotepet.exception.EmailJaCadastradoExcepition;
 import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.repository.ONGRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -54,15 +55,16 @@ public class ONGServiceImpl implements ONGService {
 
     @Override
     public void registrarNovaOng(ONG ong) {
-        // Passo 1: Criptografar a senha antes de salvar
+        if (ongRepository.findByEmail(ong.getEmail()) != null) {
+            throw new EmailJaCadastradoExcepition("Esse EMAIL já está em uso.");
+        }
+
         String senhaCriptografada = passwordEncoder.encode(ong.getPassword());
         ong.setSenha(senhaCriptografada);
 
-        // Passo 2: Encontrar e associar o papel padrão de "ONG"
-        Role ongRole = roleRepository.findByNome("ROLE_ONG"); // Você precisará criar este método no RoleRepository
+        Role ongRole = roleRepository.findByNome("ROLE_ONG");
         ong.setRoles(Set.of(ongRole));
 
-        // Passo 3: Salvar a ONG completa e segura no banco
         ongRepository.save(ong);
     }
 
