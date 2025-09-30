@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
+                        .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/ongs/listar", true)
                 )
                 .logout(logout -> logout

@@ -32,4 +32,9 @@ public class AuthController {
         // Após o registro, redireciona para a página de login para que a ONG possa entrar
         return "redirect:/login?registro=sucesso";
     }
+
+    @GetMapping("/login")
+    public String mostrarFormularioLogin() {
+        return "login";
+    }
 }
