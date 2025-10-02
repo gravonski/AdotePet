@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface CachorroRepository extends JpaRepository<Cachorro, Long> {
     List<Cachorro> findAllByOng(ONG ong);
+    long countByOng(ONG ong);
 }

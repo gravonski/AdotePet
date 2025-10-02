@@ -16,7 +16,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Gerenciar Cães</h5>
-                        <p class="card-text">Adicione, edite ou remova os cães sob sua responsabilidade.</p>
+                        <p class="card-text fs-4 fw-bold" th:text="${totalCaes}"></p>
+                        <p class="card-text">Cães cadastrados sob sua responsabilidade.</p>
                         <a th:href="@{/caes/listar}" class="btn btn-primary">Acessar</a>
                     </div>
                 </div>
@@ -25,7 +26,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Ver Denúncias</h5>
-                        <p class="card-text">Visualize as denúncias de animais abandonados feitas pelo público.</p>
+                        <p class="card-text fs-4 fw-bold" th:text="${denunciasPendentes}"></p>
+                        <p class="card-text">Denúncias pendentes aguardando ação.</p>
                         <a th:href="@{/denuncias/listar}" class="btn btn-primary">Acessar</a>
                     </div>
                 </div>
