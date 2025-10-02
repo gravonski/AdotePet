@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Dashboard - AdotePet</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container">
+        <h1 class="mt-4">Painel de Controle</h1>
+        <p class="lead" th:text="'Bem-vinda, ' + ${nomeOng} + '!'"></p>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gerenciar Cães</h5>
+                        <p class="card-text">Adicione, edite ou remova os cães sob sua responsabilidade.</p>
+                        <a th:href="@{/caes/listar}" class="btn btn-primary">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ver Denúncias</h5>
+                        <p class="card-text">Visualize as denúncias de animais abandonados feitas pelo público.</p>
+                        <a th:href="@{/denuncias/listar}" class="btn btn-primary">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Minha Conta</h5>
+                        <p class="card-text">Edite as informações da sua ONG.</p>
+                        <a th:href="@{/ongs/editar/{id}(id=${#authentication.principal.id})}" class="btn btn-secondary">Editar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

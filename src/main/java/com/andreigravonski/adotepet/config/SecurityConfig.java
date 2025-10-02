@@ -39,7 +39,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/ongs/listar", true)
+                        .defaultSuccessUrl("/dashboard", true)
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
