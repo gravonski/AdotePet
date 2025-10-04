@@ -3,6 +3,7 @@ package com.andreigravonski.adotepet.controller;
 import com.andreigravonski.adotepet.model.Cachorro;
 import com.andreigravonski.adotepet.model.Denuncia;
 import com.andreigravonski.adotepet.model.ONG;
+import com.andreigravonski.adotepet.model.StatusDenuncia;
 import com.andreigravonski.adotepet.service.CachorroService;
 import com.andreigravonski.adotepet.service.DenunciaService;
 import com.andreigravonski.adotepet.service.ONGService;
@@ -68,8 +69,9 @@ public class CachorroController {
 
     @GetMapping("/registrar-por-denuncia/{id}")
     public String mostrarFormularioRegistroPorDenuncia(@PathVariable Long id, Model model) {
-
         Denuncia denuncia = denunciaService.buscarPorId(id);
+        denuncia.setStatus(StatusDenuncia.EM_ANALISE);
+        denunciaService.salvar(denuncia);
         Cachorro novoCachorro = new Cachorro();
         novoCachorro.setDescricao(denuncia.getDescricao());
         model.addAttribute("cao", novoCachorro);
