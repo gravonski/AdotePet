@@ -25,6 +25,10 @@
             <input type="number" id="idade" th:field="*{idade}" class="form-control" />
         </div>
         <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição:</label>
+            <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
             <label for="ong" class="form-label">ONG Responsável:</label>
             <select id="ong" th:field="*{ong}" class="form-select">
                 <option value="">Selecione uma ONG</option>

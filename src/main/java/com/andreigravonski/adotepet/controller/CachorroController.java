@@ -1,8 +1,10 @@
 package com.andreigravonski.adotepet.controller;
 
 import com.andreigravonski.adotepet.model.Cachorro;
+import com.andreigravonski.adotepet.model.Denuncia;
 import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.service.CachorroService;
+import com.andreigravonski.adotepet.service.DenunciaService;
 import com.andreigravonski.adotepet.service.ONGService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,10 +18,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/caes")
 public class CachorroController {
+
+    private final DenunciaService denunciaService;
     private final CachorroService cachorroService;
     private final ONGService ongService;
 
-    public CachorroController(CachorroService cachorroService, ONGService ongService) {
+    public CachorroController(DenunciaService denunciaService, CachorroService cachorroService, ONGService ongService) {
+        this.denunciaService = denunciaService;
         this.cachorroService = cachorroService;
         this.ongService = ongService;
     }
@@ -59,6 +64,17 @@ public class CachorroController {
         cachorroService.deletarPorId(id);
         redirectAttributes.addFlashAttribute("mensagem", "Cão deletado com sucesso!");
         return "redirect:/caes/listar";
+    }
+
+    @GetMapping("/registrar-por-denuncia/{id}")
+    public String mostrarFormularioRegistroPorDenuncia(@PathVariable Long id, Model model) {
+
+        Denuncia denuncia = denunciaService.buscarPorId(id);
+        Cachorro novoCachorro = new Cachorro();
+        novoCachorro.setDescricao(denuncia.getDescricao());
+        model.addAttribute("cao", novoCachorro);
+        model.addAttribute("listaOngs", ongService.buscarONG());
+        return "caes/formulario";
     }
 }
 
