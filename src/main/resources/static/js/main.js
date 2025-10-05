@@ -1,0 +1,1 @@
+console.log("AdotePet JS: O script principal foi carregado com sucesso.");
