@@ -41,7 +41,7 @@
         <td>
             <a th:href="@{/denuncias/editar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-warning">Editar</a>
             |
-            <a th:href="@{/denuncias/deletar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta ONG?')">Deletar</a>
+            <a th:href="@{/denuncias/deletar/{id}(id=${denuncia.id})}" class="btn-delete" >Deletar</a>
         </td>
     </tr>
     </tbody>
