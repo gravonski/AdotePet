@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.doNothing;
 
 import java.util.Optional;
 
@@ -68,5 +70,31 @@ class ONGServiceImplTest {
         assertThrows(RuntimeException.class, () -> {
             ongService.buscarPorId(99L);
         });
+    }
+
+
+    @Test
+    void deveDeletarOngComSucesso() {
+        // --- ARRANGE (Arrumar o cenário) ---
+
+        // 1. Defina o ID que vamos testar.
+        Long ongId = 1L;
+
+        // 2. Dê o roteiro para o dublê:
+        // "QUANDO o método deleteById com o ID 1L for chamado, NÃO FAÇA NADA (doNothing) e não lance exceções."
+        // Isso é necessário porque deleteById retorna void.
+        doNothing().when(ongRepository).deleteById(ongId);
+
+        // --- ACT (Agir / Executar a ação) ---
+
+        // 3. Chame o método real do nosso serviço que queremos testar.
+        ongService.deletarPorId(ongId);
+
+        // --- ASSERT (Afirmar / Verificar o comportamento) ---
+
+        // 4. Aqui está a câmera de segurança:
+        // Verifique (verify) se o nosso dublê 'ongRepository' teve seu método 'deleteById'
+        // chamado EXATAMENTE UMA VEZ com o argumento 'ongId'.
+        verify(ongRepository).deleteById(ongId);
     }
 }
