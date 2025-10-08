@@ -8,6 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
 
@@ -22,7 +24,8 @@ class ONGServiceImplTest {
     @InjectMocks // Diz ao Mockito: "Crie uma instância real do ONGServiceImpl e injete os dublês (@Mock) nela"
     private ONGServiceImpl ongService;
 
-    @Test // Marca este método como um caso de teste que o JUnit deve executar
+    @Test
+        // Marca este método como um caso de teste que o JUnit deve executar
     void deveBuscarOngPorIdComSucesso() {
         // --- ARRANGE (Arrumar o cenário) ---
 
@@ -49,4 +52,21 @@ class ONGServiceImplTest {
     }
 
     // Futuramente, adicionaremos outro @Test para o cenário de falha (quando o ID não é encontrado).
+    @Test
+    void deveLancarExcecaoAoBuscarIdInexistente() {
+        // --- ARRANGE (Arrumar o cenário) ---
+
+        // 1. Dê o roteiro para o nosso dublê:
+        // "QUANDO o método findById com o ID 99L (um ID inexistente) for chamado..."
+        when(ongRepository.findById(99L)).thenReturn(Optional.empty()); // "...ENTÃO retorne um Optional VAZIO."
+
+        // --- ACT & ASSERT (Agir e Verificar ao mesmo tempo) ---
+
+        // 2. Aqui está a mágica do teste de exceção:
+        // Nós afirmamos (assert) que uma exceção (Throws) do tipo RuntimeException.class SERÁ LANÇADA
+        // quando executarmos o código dentro do lambda "() -> ongService.buscarPorId(99L)".
+        assertThrows(RuntimeException.class, () -> {
+            ongService.buscarPorId(99L);
+        });
+    }
 }
