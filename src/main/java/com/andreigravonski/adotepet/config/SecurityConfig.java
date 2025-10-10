@@ -4,6 +4,7 @@ import com.andreigravonski.adotepet.service.OngUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -23,18 +23,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // CSRF agora está ATIVADO por padrão (removemos a linha .disable())
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
+                .authenticationProvider(authenticationProvider()) // <-- A LINHA QUE FALTAVA
                 .authorizeHttpRequests(authorize -> authorize
-                        // Regra 1: Permite acesso a recursos estáticos.
+                        .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-
-                        // Regra 2: Permite acesso PÚBLICO via GET a estas URLs.
-                        .requestMatchers(HttpMethod.GET, "/", "/home", "/denuncias/denunciar", "/denuncias/denuncia-sucesso", "/registro").permitAll()
-
-                        // Regra 3: Permite acesso PÚBLICO via POST APENAS a esta URL.
-                        .requestMatchers(HttpMethod.POST, "/denuncias/denunciar/salvar", "/registro").permitAll()
-
-                        // Regra 4: Qualquer outra requisição, de qualquer tipo, exige autenticação.
+                        .requestMatchers(HttpMethod.GET, "/", "/home", "/registro", "/denuncias/denunciar", "/denuncias/denuncia-sucesso").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/registro", "/denuncias/denunciar/salvar").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

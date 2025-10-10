@@ -9,7 +9,7 @@
 <section layout:fragment="content">
     <h1>Cadastrar / Editar Cão</h1>
 
-    <form th:action="@{/caes/salvar}" th:object="${cao}" method="post">
+    <form th:action="@{/caes/salvar}" th:object="${cao}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}" />
 
         <div class="mb-3">
@@ -27,6 +27,10 @@
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição:</label>
             <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="imagem" class="form-label">Foto do Cão:</label>
+            <input type="file" id="imagem" name="imagem" class="form-control" />
         </div>
         <div class="mb-3">
             <label for="ong" class="form-label">ONG Responsável:</label>

@@ -55,9 +55,16 @@ public class CachorroController {
 
     @PostMapping("/salvar")
     public String salvarCao(@ModelAttribute Cachorro cachorro, RedirectAttributes redirectAttributes) {
-        cachorroService.salvar(cachorro);
-        redirectAttributes.addFlashAttribute("mensagem", "Cão salvo com sucesso!");
-        return "redirect:/caes/listar";
+        try {
+            cachorroService.salvar(cachorro);
+            redirectAttributes.addFlashAttribute("mensagem", "Cão salvo com sucesso!");
+            return "redirect:/caes/listar";
+        } catch (Exception e) {
+            System.err.println("### ERRO AO SALVAR O CÃO ###");
+            e.printStackTrace(); // <-- A CONFISSÃO DO ERRO
+            redirectAttributes.addFlashAttribute("mensagemErro", "Ocorreu um erro inesperado ao salvar.");
+            return "redirect:/caes/formulario";
+        }
     }
 
     @GetMapping("/deletar/{id}")
