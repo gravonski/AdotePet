@@ -23,6 +23,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
                 .authenticationProvider(authenticationProvider()) // <-- A LINHA QUE FALTAVA
                 .authorizeHttpRequests(authorize -> authorize
@@ -33,7 +34,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/dashboard", true)
                 )
                 .logout(logout -> logout
@@ -45,7 +45,9 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        // AVISO: Depreciado e totalmente inseguro para produção.
+        // Usando APENAS para diagnóstico.
+        return org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance();
     }
 
     @Bean

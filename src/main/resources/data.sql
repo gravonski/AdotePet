@@ -1,5 +1,5 @@
 -- Insere/Atualiza a ONG Admin. Se a ONG com ID 1 já existir, nada acontece.
-MERGE INTO tb_ongs (id, nome, email, senha, cidade, telefone) KEY(id) VALUES (1, 'ONG Admin', 'admin@adotepet.com', '$2a$10$3gE.E.q.T8qA.j2.s4g0/e.l/s8.w5P9j5B/8yE.e2fF.e1Z.w9K', 'Cidade Admin', '12345-6789');
+MERGE INTO tb_ongs (id, nome, email, senha, cidade, telefone) KEY(id) VALUES (1, 'ONG Admin', 'admin@adotepet.com', 'senha123', 'Cidade Admin', '12345-6789');
 
 -- Insere/Atualiza os papéis.
 MERGE INTO tb_role (id, nome) KEY(id) VALUES (1, 'ROLE_ADMIN');
