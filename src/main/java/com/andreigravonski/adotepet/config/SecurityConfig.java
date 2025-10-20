@@ -23,17 +23,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
-                .authenticationProvider(authenticationProvider()) // <-- A LINHA QUE FALTAVA
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())) // Necessário para o H2 Console
+                .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/", "/home", "/registro", "/denuncias/denunciar", "/denuncias/denuncia-sucesso").permitAll()
+                        .requestMatchers("/h2-console/**", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/home", "/login", "/registro", "/denuncias/denunciar", "/denuncias/denuncia-sucesso").permitAll()
                         .requestMatchers(HttpMethod.POST, "/registro", "/denuncias/denunciar/salvar").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
+                        .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/dashboard", true)
                 )
                 .logout(logout -> logout

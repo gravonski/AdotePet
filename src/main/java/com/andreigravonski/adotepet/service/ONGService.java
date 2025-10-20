@@ -10,4 +10,5 @@ public interface ONGService {
     ONG buscarPorId(Long id);
     void deletarPorId(Long id);
     void registrarNovaOng(ONG ong);
+    void criarAdminUserSeNaoExistir();
 }
