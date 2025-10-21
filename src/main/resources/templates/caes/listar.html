@@ -33,6 +33,10 @@
             <td th:text="${cao.idade}"></td>
             <td th:text="${cao.ong != null ? cao.ong.nome : 'Sem ONG'}"></td>
             <td>
+                <img th:if="${cao.fotoUrl}" th:src="@{/uploaded-images/{filename}(filename=${cao.fotoUrl})}"
+                     alt="Foto do Cão" width="100" />
+            </td>
+            <td>
                 <a th:href="@{/caes/editar/{id}(id=${cao.id})}" class="btn btn-sm btn-warning">Editar</a>
                 <a th:href="@{/caes/deletar/{id}(id=${cao.id})}" class="btn-delete" >Deletar</a>
             </td>
