@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -54,9 +56,12 @@ public class CachorroController {
     }
 
     @PostMapping("/salvar")
-    public String salvarCao(@ModelAttribute Cachorro cachorro, RedirectAttributes redirectAttributes) {
+    public String salvarCao(@ModelAttribute Cachorro cachorro,
+                            @RequestParam("imagemFile") MultipartFile imagemFile, // <-- NOVO PARÂMETRO
+                            RedirectAttributes redirectAttributes) {
         try {
-            cachorroService.salvar(cachorro);
+            // Agora passamos o cachorro E o arquivo para o serviço
+            cachorroService.salvar(cachorro, imagemFile);
             redirectAttributes.addFlashAttribute("mensagem", "Cão salvo com sucesso!");
             return "redirect:/caes/listar";
         } catch (Exception e) {

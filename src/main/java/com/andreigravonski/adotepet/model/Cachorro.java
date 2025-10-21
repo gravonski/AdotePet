@@ -1,99 +1,39 @@
 package com.andreigravonski.adotepet.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = "ong")
-@ToString(exclude = "ong")
 @Entity
 @Table(name = "tb_cachorros")
 public class Cachorro {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-private String nome;
+    private String nome;
 
-private int idade;
+    private int idade;
 
-private String raca;
+    private String raca;
 
-private Enum status;
+    @Enumerated(EnumType.STRING) // Boa prática: Salva o nome do status, não o número
+    private StatusDenuncia status; // Usa o Enum específico
 
-private String imagemUrl;
+    private String fotoUrl; // Renomeado de imagemUrl para consistência
 
-private String descricao;
+    @Column(columnDefinition = "TEXT") // Permite textos mais longos
+    private String descricao;
 
-@ManyToOne
-@JoinColumn(name = "cachorros")
-private ONG ong;
+    @ManyToOne(fetch = FetchType.LAZY) // LAZY é mais performático para relacionamentos ManyToOne
+    @JoinColumn(name = "ong_id") // Nome correto da coluna da chave estrangeira
+    private ONG ong;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public String getRaca() {
-        return raca;
-    }
-
-    public void setRaca(String raca) {
-        this.raca = raca;
-    }
-
-    public Enum getStatus() {
-        return status;
-    }
-
-    public void setStatus(Enum status) {
-        this.status = status;
-    }
-
-    public String getImagemUrl() {
-        return imagemUrl;
-    }
-
-    public void setImagemUrl(String imagemUrl) {
-        this.imagemUrl = imagemUrl;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public ONG getOng() {
-        return ong;
-    }
-
-    public void setOng(ONG ong) {
-        this.ong = ong;
-    }
 }
