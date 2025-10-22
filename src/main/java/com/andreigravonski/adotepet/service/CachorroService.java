@@ -12,4 +12,5 @@ public interface CachorroService {
     Cachorro salvar(Cachorro cachorro, MultipartFile imagemFile); // <-- Assinatura correta
     void deletarPorId(Long id);
     List<Cachorro> buscarPorOng(ONG ong);
+    List<Cachorro> buscarPorOngERaca(ONG ong, String raca);
 }

@@ -33,6 +33,11 @@ public class CachorroServiceImpl implements CachorroService {
     }
 
     @Override
+    public List<Cachorro> buscarPorOngERaca(ONG ong, String raca) {
+        return cachorroRepository.findByOngAndRacaContainingIgnoreCase(ong, raca);
+    }
+
+    @Override
     public Cachorro salvar(Cachorro cachorro, MultipartFile imagemFile) { // <-- Assinatura correta
         if (imagemFile != null && !imagemFile.isEmpty()) {
             String nomeArquivo = fileStorageService.store(imagemFile);

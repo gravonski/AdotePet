@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -33,10 +34,24 @@ public class CachorroController {
     }
 
     @GetMapping("/listar")
-    public String listarCaes(Model model, Authentication authentication) {
+    public String listarCaes(Model model, Authentication authentication,
+                             @RequestParam(required = false) String raca) { // <-- PARÂMETRO NOVO
         ONG ongLogada = (ONG) authentication.getPrincipal();
-        List<Cachorro> caesDaOng = cachorroService.buscarPorOng(ongLogada);
-        model.addAttribute ("caes", caesDaOng);
+
+        List<Cachorro> caesDaOng;
+
+        // Se um termo de busca para 'raca' foi fornecido...
+        if (raca != null && !raca.isBlank()) {
+            // ...chame o novo método de serviço de busca.
+            caesDaOng = cachorroService.buscarPorOngERaca(ongLogada, raca);
+        } else {
+            // ...senão, continue usando o método antigo.
+            caesDaOng = cachorroService.buscarPorOng(ongLogada);
+        }
+
+        model.addAttribute("caes", caesDaOng);
+        model.addAttribute("racaBusca", raca); // Devolve o termo de busca para a view
+
         return "caes/listar";
     }
 
