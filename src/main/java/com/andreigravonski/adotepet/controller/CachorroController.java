@@ -7,15 +7,15 @@ import com.andreigravonski.adotepet.model.StatusDenuncia;
 import com.andreigravonski.adotepet.service.CachorroService;
 import com.andreigravonski.adotepet.service.DenunciaService;
 import com.andreigravonski.adotepet.service.ONGService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -95,8 +95,10 @@ public class CachorroController {
     }
 
     @GetMapping("/registrar-por-denuncia/{id}")
-    public String mostrarFormularioRegistroPorDenuncia(@PathVariable Long id, Model model) {
+    public String mostrarFormularioRegistroPorDenuncia(@PathVariable Long id, Model model, Authentication authentication) {
         Denuncia denuncia = denunciaService.buscarPorId(id);
+        ONG ongLogada = (ONG) authentication.getPrincipal();
+        denuncia.setOng(ongLogada);
         denuncia.setStatus(StatusDenuncia.EM_ANALISE);
         denunciaService.salvar(denuncia);
         Cachorro novoCachorro = new Cachorro();

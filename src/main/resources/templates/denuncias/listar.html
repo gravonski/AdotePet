@@ -43,6 +43,12 @@
             |
             <a th:href="@{/denuncias/deletar/{id}(id=${denuncia.id})}" class="btn-delete" >Deletar</a>
         </td>
+        <th>ONG Responsável</th>
+
+        <td th:text="${denuncia.ong != null ? denuncia.ong.nome : 'N/A'}"></td>
+
+        <a th*if="${denuncia.ong == null}" th:href="@{/caes/registrar-por-denuncia/{id}(id=${denuncia.id})}"
+           class="btn btn-sm btn-info">Investigar</a>
     </tr>
     </tbody>
 </table>

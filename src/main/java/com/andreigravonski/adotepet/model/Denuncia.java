@@ -2,6 +2,9 @@ package com.andreigravonski.adotepet.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 
@@ -30,4 +33,8 @@ private String descricao;
 private StatusDenuncia status;
 
 private LocalDateTime dataHora;
+
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "ong_id")
+private ONG ong;
 }
