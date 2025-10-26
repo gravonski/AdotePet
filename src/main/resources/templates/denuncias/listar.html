@@ -9,49 +9,63 @@
 </head>
 <body>
 <section layout:fragment="content">
-<h1>Denúncias Cadastradas</h1>
+    <div class="container mt-4">
+        <div th:if="${mensagem}" class="alert alert-success" th:text="${mensagem}"></div>
 
-<div th:if="${mensagem}" th:text="${mensagem}" class="alert alert-success"></div>
+        <h2>Denúncias Disponíveis para Investigação</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Localização</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="denuncia : ${denunciasDisponiveis}">
+                    <td th:text="${denuncia.id}"></td>
+                    <td th:text="${denuncia.descricao}"></td>
+                    <td th:text="${denuncia.localizacao}"></td>
+                    <td th:text="${denuncia.status}"></td>
+                    <td>
+                        <a th:href="@{/caes/registrar-por-denuncia/{id}(id=${denuncia.id})}"
+                           class="btn btn-sm btn-info">Investigar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-<p><a th:href="@{/denuncias/novo}" class="btn btn-primary">Cadastrar nova denúncia</a></p>
-
-<table class="table table-striped table-hover">
-    <thead class="table-dark">
-    <tr>
-        <th>Id da Denúncia</th>
-        <th>Descrição</th>
-        <th>Localização</th>
-        <th>Status</th>
-        <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="denuncia : ${denuncias}">
-        <td th:text="${denuncia.id}"></td>
-        <td th:text="${denuncia.descricao}"></td>
-        <td th:text="${denuncia.localizacao}"></td>
-        <td th:text="${denuncia.status}"></td>
-        <td>
-            <a th:if="${denuncia.status.name() == 'PENDENTE'}"
-               th:href="@{/caes/registrar-por-denuncia/{id}(id=${denuncia.id})}"
-               class="btn btn-sm btn-info">Registrar Cão</a>
-            <a th:href="@{/denuncias/resgatar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-sucess">Resgatar</a>
-            <a th:href="@{/denuncias/ignorar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-secondary">Ignorar</a>
-        </td>
-        <td>
-            <a th:href="@{/denuncias/editar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-warning">Editar</a>
-            |
-            <a th:href="@{/denuncias/deletar/{id}(id=${denuncia.id})}" class="btn-delete" >Deletar</a>
-        </td>
-        <th>ONG Responsável</th>
-
-        <td th:text="${denuncia.ong != null ? denuncia.ong.nome : 'N/A'}"></td>
-
-        <a th*if="${denuncia.ong == null}" th:href="@{/caes/registrar-por-denuncia/{id}(id=${denuncia.id})}"
-           class="btn btn-sm btn-info">Investigar</a>
-    </tr>
-    </tbody>
-</table>
+        <hr class="my-5"> <h2>Minhas Denúncias</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Localização</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="denuncia : ${minhasDenuncias}">
+                    <td th:text="${denuncia.id}"></td>
+                    <td th:text="${denuncia.descricao}"></td>
+                    <td th:text="${denuncia.localizacao}"></td>
+                    <td th:text="${denuncia.status}"></td>
+                    <td>
+                        <a th:href="@{/denuncias/resgatar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-success">Resgatar</a>
+                        <a th:href="@{/denuncias/ignorar/{id}(id=${denuncia.id})}" class="btn btn-sm btn-secondary">Ignorar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.andreigravonski.adotepet.service;
 
 import com.andreigravonski.adotepet.model.Denuncia;
+import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.model.StatusDenuncia;
 import com.andreigravonski.adotepet.repository.DenunciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,16 @@ public class DenunciaServiceImpl implements DenunciaService {
         // Regra de negócio: Toda denúncia pública começa como PENDENTE
         denuncia.setStatus(StatusDenuncia.PENDENTE);
         return denunciaRepository.save(denuncia);
+    }
+
+    @Override
+    public List<Denuncia> buscarDenunciasDisponiveis(){
+        return denunciaRepository.findByOngIsNullAndStatus(StatusDenuncia.PENDENTE);
+    }
+
+    @Override
+    public List<Denuncia> buscarDenunciasPorOng(ONG ong){
+        return denunciaRepository.findByOng(ong);
     }
 
     @Autowired
