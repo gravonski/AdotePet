@@ -35,7 +35,7 @@ public class CachorroController {
 
     @GetMapping("/listar")
     public String listarCaes(Model model, Authentication authentication,
-                             @RequestParam(required = false) String raca) { // <-- PARÂMETRO NOVO
+                             @RequestParam(value = "raca",required = false) String raca) { // <-- PARÂMETRO NOVO
         ONG ongLogada = (ONG) authentication.getPrincipal();
 
         List<Cachorro> caesDaOng;
