@@ -37,21 +37,9 @@ public class CachorroController {
     public String listarCaes(Model model, Authentication authentication,
                              @RequestParam(value = "raca",required = false) String raca) { // <-- PARÂMETRO NOVO
         ONG ongLogada = (ONG) authentication.getPrincipal();
-
-        List<Cachorro> caesDaOng;
-
-        // Se um termo de busca para 'raca' foi fornecido...
-        if (raca != null && !raca.isBlank()) {
-            // ...chame o novo método de serviço de busca.
-            caesDaOng = cachorroService.buscarPorOngERaca(ongLogada, raca);
-        } else {
-            // ...senão, continue usando o método antigo.
-            caesDaOng = cachorroService.buscarPorOng(ongLogada);
-        }
-
+        List<Cachorro> caesDaOng = cachorroService.buscarCaesFiltrado(ongLogada, raca);
         model.addAttribute("caes", caesDaOng);
-        model.addAttribute("racaBusca", raca); // Devolve o termo de busca para a view
-
+        model.addAttribute("racaBusca", raca);
         return "caes/listar";
     }
 

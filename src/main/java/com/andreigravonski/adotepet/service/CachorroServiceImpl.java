@@ -6,6 +6,8 @@ import com.andreigravonski.adotepet.repository.CachorroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.andreigravonski.adotepet.specification.CachorroSpecification;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -33,8 +35,24 @@ public class CachorroServiceImpl implements CachorroService {
     }
 
     @Override
-    public List<Cachorro> buscarPorOngERaca(ONG ong, String raca) {
-        return cachorroRepository.findByOngAndRacaContainingIgnoreCase(ong, raca);
+    public List<Cachorro> buscarCaesFiltrado(ONG ong, String raca) {
+        // 1. Começa com uma query "vazia" que seleciona tudo.
+        Specification<Cachorro> spec = Specification.where(null);
+
+        // 2. Adiciona o primeiro "bloco de Lego": filtrar pela ONG logada.
+        // (Precisamos criar este bloco em CachorroSpecification)
+        spec = spec.and(CachorroSpecification.porOng(ong));
+
+        // 3. Se o usuário forneceu uma raça...
+        if (raca != null && !raca.isBlank()) {
+            // ...encaixe o "bloco de Lego" da raça.
+            spec = spec.and(CachorroSpecification.porRaca(raca));
+        }
+
+        // (Amanhã, se o usuário mandar idade, adicionaremos .and(CachorroSpecification.porIdade(idade)))
+
+        // 4. Executa a query dinâmica montada.
+        return cachorroRepository.findAll(spec);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.andreigravonski.adotepet.specification;
 
 import com.andreigravonski.adotepet.model.Cachorro;
+import com.andreigravonski.adotepet.model.ONG;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +17,11 @@ public class CachorroSpecification {
                 );
     }
 
+    // ... dentro da classe CachorroSpecification ...
+
+    public static Specification<Cachorro> porOng(ONG ong) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("ong"), ong); // SQL: WHERE ong_id = ?
+    }
     // Amanhã, adicionaremos mais blocos aqui, como porIdade(), porCidade(), etc.
 }
