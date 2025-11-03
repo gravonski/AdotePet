@@ -3,10 +3,11 @@ package com.andreigravonski.adotepet.repository;
 import com.andreigravonski.adotepet.model.Cachorro;
 import com.andreigravonski.adotepet.model.ONG;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface CachorroRepository extends JpaRepository<Cachorro, Long> {
+public interface CachorroRepository extends JpaRepository<Cachorro, Long>, JpaSpecificationExecutor<Cachorro> {
     List<Cachorro> findAllByOng(ONG ong);
     long countByOng(ONG ong);
     List<Cachorro> findByOngAndRacaContainingIgnoreCase(ONG ong, String raca);
