@@ -35,23 +35,19 @@ public class CachorroServiceImpl implements CachorroService {
     }
 
     @Override
-    public List<Cachorro> buscarCaesFiltrado(ONG ong, String raca) {
-        // 1. Começa com uma query "vazia" que seleciona tudo.
-        Specification<Cachorro> spec = Specification.where(null);
+    public List<Cachorro> buscarCaesFiltrado(ONG ong, String raca, Integer idade) { // <-- NOVO PARÂMETRO
+        Specification<Cachorro> spec = Specification.where(CachorroSpecification.porOng(ong));
 
-        // 2. Adiciona o primeiro "bloco de Lego": filtrar pela ONG logada.
-        // (Precisamos criar este bloco em CachorroSpecification)
-        spec = spec.and(CachorroSpecification.porOng(ong));
-
-        // 3. Se o usuário forneceu uma raça...
         if (raca != null && !raca.isBlank()) {
-            // ...encaixe o "bloco de Lego" da raça.
             spec = spec.and(CachorroSpecification.porRaca(raca));
         }
 
-        // (Amanhã, se o usuário mandar idade, adicionaremos .and(CachorroSpecification.porIdade(idade)))
+        // --- NOSSA NOVA LÓGICA ---
+        if (idade != null) {
+            spec = spec.and(CachorroSpecification.porIdadeMaxima(idade));
+        }
+        // --- FIM DA NOVA LÓGICA ---
 
-        // 4. Executa a query dinâmica montada.
         return cachorroRepository.findAll(spec);
     }
 

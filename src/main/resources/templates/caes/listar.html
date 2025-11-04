@@ -13,10 +13,15 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1>Cães Cadastrados</h1>
-        <form th:action="@{/caes/listar}" method="get" class="mb-4">
-            <div class="input-group">
+        <form th:action="@{/caes/listar}" method="get" class="mb-4 row g-3 align-items-center">
+            <div class="col-md-5">
                 <input type="text" name="raca" class="form-control" placeholder="Buscar por raça..." th:value="${racaBusca}" />
-                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="col-md-5">
+                <input type="number" name="idade" class="form-control" placeholder="Idade máxima..." th:value="${idadeBusca}" />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Buscar</button>
             </div>
         </form>
         <a th:href="@{/caes/novo}" class="btn btn-primary">Cadastrar Novo Cão</a>

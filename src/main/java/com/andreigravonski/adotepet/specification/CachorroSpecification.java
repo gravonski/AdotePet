@@ -23,5 +23,13 @@ public class CachorroSpecification {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(root.get("ong"), ong); // SQL: WHERE ong_id = ?
     }
+
+    // ... dentro da classe CachorroSpecification ...
+
+    public static Specification<Cachorro> porIdadeMaxima(Integer idade) {
+        return (root, query, criteriaBuilder) ->
+                // SQL: WHERE idade <= ?
+                criteriaBuilder.lessThanOrEqualTo(root.get("idade"), idade);
+    }
     // Amanhã, adicionaremos mais blocos aqui, como porIdade(), porCidade(), etc.
 }

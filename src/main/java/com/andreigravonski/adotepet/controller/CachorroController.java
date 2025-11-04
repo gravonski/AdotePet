@@ -35,11 +35,18 @@ public class CachorroController {
 
     @GetMapping("/listar")
     public String listarCaes(Model model, Authentication authentication,
-                             @RequestParam(value = "raca",required = false) String raca) { // <-- PARÂMETRO NOVO
+                             @RequestParam(value = "raca", required = false) String raca,
+                             @RequestParam(value = "idade", required = false) Integer idade) { // <-- NOVO PARÂMETRO
+
         ONG ongLogada = (ONG) authentication.getPrincipal();
-        List<Cachorro> caesDaOng = cachorroService.buscarCaesFiltrado(ongLogada, raca);
+
+        // Passe a idade para o serviço
+        List<Cachorro> caesDaOng = cachorroService.buscarCaesFiltrado(ongLogada, raca, idade); // <-- NOVO PARÂMETRO
+
         model.addAttribute("caes", caesDaOng);
         model.addAttribute("racaBusca", raca);
+        model.addAttribute("idadeBusca", idade); // <-- Devolve para a view
+
         return "caes/listar";
     }
 
