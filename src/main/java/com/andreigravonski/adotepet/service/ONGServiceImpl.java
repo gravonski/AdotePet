@@ -3,12 +3,15 @@ package com.andreigravonski.adotepet.service;
 import com.andreigravonski.adotepet.exception.EmailJaCadastradoExcepition;
 import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.repository.ONGRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.andreigravonski.adotepet.repository.RoleRepository;
 import com.andreigravonski.adotepet.model.Role;
+
+
 import java.util.Set;
 
 import java.util.List;
@@ -65,33 +68,46 @@ public class ONGServiceImpl implements ONGService {
         ongRepository.save(ong);
     }
 
-    // Lembre-se de ter o RoleRepository injetado no seu serviço
+    /// Lembre-se dos imports para Role, Set, etc.
+
+    @Override
+    @Transactional // Garante que a operação seja atômica
     public void criarAdminUserSeNaoExistir() {
-        // Verifica se o usuário admin já existe para não criar duplicatas
+        // 1. Verifica se o admin já existe
         if (ongRepository.findByEmail("admin@adotepet.com") == null) {
             System.out.println("---[FORJA ATIVA] Criando usuário admin...---");
 
-            // Criptografa a senha na hora
-            String senhaCriptografada = passwordEncoder.encode("senha123");
-
-            // Busca o papel de ADMIN
+            // 2. Busca o ROLE_ADMIN. Se não existir, cria.
             Role adminRole = roleRepository.findByNome("ROLE_ADMIN");
             if (adminRole == null) {
-                // Se o papel não existir, cria ele
-                adminRole = new Role(); // Use o construtor vazio
-                adminRole.setNome("ROLE_ADMIN"); // Defina o nome separadamente
+                adminRole = new Role();
+                adminRole.setNome("ROLE_ADMIN");
                 roleRepository.save(adminRole);
             }
 
-            // Cria a nova ONG admin
+            // 3. Busca o ROLE_ONG. Se não existir, cria.
+            Role ongRole = roleRepository.findByNome("ROLE_ONG");
+            if (ongRole == null) {
+                ongRole = new Role();
+                ongRole.setNome("ROLE_ONG");
+                roleRepository.save(ongRole);
+            }
+
+            // 4. Criptografa a senha "senha123" na hora
+            String senhaCriptografada = passwordEncoder.encode("senha123");
+
+            // 5. Cria a nova ONG admin
             ONG adminOng = new ONG();
             adminOng.setNome("ONG Admin");
             adminOng.setEmail("admin@adotepet.com");
             adminOng.setSenha(senhaCriptografada);
-            adminOng.setRoles(Set.of(adminRole));
+            adminOng.setRoles(Set.of(adminRole, ongRole)); // Dá ambos os papéis ao admin
 
-            // Salva o admin no banco
+            // 6. Salva o admin no banco
             ongRepository.save(adminOng);
+            System.out.println("---[FORJA ATIVA] Usuário admin criado com sucesso.---");
+        } else {
+            System.out.println("---[FORJA ATIVA] Usuário admin já existe. Nenhuma ação necessária.---");
         }
     }
 
