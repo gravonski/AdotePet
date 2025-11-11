@@ -9,7 +9,7 @@ import java.util.List;
 public interface CachorroService {
     List<Cachorro> buscarTodos();
     Cachorro buscarPorId(Long id);
-    Cachorro salvar(Cachorro cachorro, MultipartFile imagemFile); // <-- Assinatura correta
+    void salvar(Cachorro cachorro, MultipartFile imagem);
     void deletarPorId(Long id);
     List<Cachorro> buscarPorOng(ONG ong);
     List<Cachorro> buscarCaesFiltrado(ONG ong, String raca, Integer idade);

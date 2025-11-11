@@ -17,10 +17,10 @@ public class CachorroServiceImpl implements CachorroService {
     private final CachorroRepository cachorroRepository;
     private final FileStorageService fileStorageService;
 
-    @Autowired
-    public CachorroServiceImpl(CachorroRepository cachorroRepository, FileStorageService fileStorageService) {
+    public CachorroServiceImpl(CachorroRepository cachorroRepository,
+                               FileStorageService fileStorageService) { // <-- MODIFICADO
         this.cachorroRepository = cachorroRepository;
-        this.fileStorageService = fileStorageService;
+        this.fileStorageService = fileStorageService; // <-- MODIFICADO
     }
 
     @Override
@@ -52,12 +52,12 @@ public class CachorroServiceImpl implements CachorroService {
     }
 
     @Override
-    public Cachorro salvar(Cachorro cachorro, MultipartFile imagemFile) { // <-- Assinatura correta
-        if (imagemFile != null && !imagemFile.isEmpty()) {
-            String nomeArquivo = fileStorageService.store(imagemFile);
+    public void salvar(Cachorro cachorro, MultipartFile imagem) {
+        if (imagem != null && !imagem.isEmpty()) {
+            String nomeArquivo = fileStorageService.store(imagem);
             cachorro.setFotoUrl(nomeArquivo);
         }
-        return cachorroRepository.save(cachorro);
+        cachorroRepository.save(cachorro);
     }
 
     @Override

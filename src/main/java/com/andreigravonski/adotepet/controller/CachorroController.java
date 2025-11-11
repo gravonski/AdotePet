@@ -7,15 +7,19 @@ import com.andreigravonski.adotepet.model.StatusDenuncia;
 import com.andreigravonski.adotepet.service.CachorroService;
 import com.andreigravonski.adotepet.service.DenunciaService;
 import com.andreigravonski.adotepet.service.ONGService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -66,9 +70,9 @@ public class CachorroController {
     }
 
     @PostMapping("/salvar")
-    public String salvarCao(@ModelAttribute Cachorro cachorro,
-                            @RequestParam("imagemFile") MultipartFile imagemFile, // <-- NOVO PARÂMETRO
-                            RedirectAttributes redirectAttributes) {
+    public String salvarCao(@ModelAttribute("cao") @Valid Cachorro cachorro, BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                            @RequestParam("imagemFile") MultipartFile imagemFile,
+                            Authentication authentication) {
         try {
             // Agora passamos o cachorro E o arquivo para o serviço
             cachorroService.salvar(cachorro, imagemFile);
@@ -78,7 +82,7 @@ public class CachorroController {
             System.err.println("### ERRO AO SALVAR O CÃO ###");
             e.printStackTrace(); // <-- A CONFISSÃO DO ERRO
             redirectAttributes.addFlashAttribute("mensagemErro", "Ocorreu um erro inesperado ao salvar.");
-            return "redirect:/caes/formulario";
+            return "redirect:/caes/listar";
         }
     }
 
