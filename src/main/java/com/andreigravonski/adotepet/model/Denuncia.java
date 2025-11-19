@@ -5,7 +5,7 @@ import lombok.*;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -25,8 +25,10 @@ private Long id;
 @Column
 private String fotoUrl;
 
+@NotBlank(message = "A localização não pode estar vazia.")
 private String localizacao;
 
+@NotBlank(message = "A descrição deve ser preenchida para podermos ajudar!")
 private String descricao;
 
 @Enumerated(EnumType.STRING)

@@ -4,7 +4,8 @@ import com.andreigravonski.adotepet.model.Denuncia;
 import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.model.StatusDenuncia;
 import com.andreigravonski.adotepet.service.DenunciaService;
-import jakarta.persistence.Id;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -77,9 +78,15 @@ public class DenunciaController {
     }
 
     @PostMapping("/denunciar/salvar")
-    public String salvarDenunciaPublica(@ModelAttribute Denuncia denuncia, RedirectAttributes redirectAttributes) {
-        denunciaService.salvarDenunciaPublica(denuncia); // Chamando o novo metodo publico
-
+    public String salvarDenunciaPublica(@Valid @ModelAttribute Denuncia denuncia,
+                                        BindingResult result,
+                                        RedirectAttributes redirectAttributes,
+                                        Model model) {
+        if (result.hasErrors()) {
+            return "denuncias/formulario-publico";
+        }
+        denuncia.setStatus(StatusDenuncia.PENDENTE);
+        denunciaService.salvarDenunciaPublica(denuncia);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Sua denúncia foi registrada com sucesso! Agradecemos sua colaboração.");
         return "redirect:/denuncias/denuncia-sucesso";
     }

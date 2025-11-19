@@ -15,11 +15,22 @@
 
             <div class="mb-3">
                 <label for="localizacao" class="form-label">Localização Aproximada:</label>
-                <input type="text" id="localizacao" th:field="*{localizacao}" class="form-control" />
+                <input type="text" id="localizacao" th:field="*{localizacao}"
+                       class="form-control"
+                       th:classappend="${#fields.hasErrors('localizacao')} ? 'is-invalid'" />
+
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('localizacao')}" th:errors="*{localizacao}">
+                    Erro na localização
+                </div>
             </div>
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição:</label>
-                <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3"></textarea>
+                <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3"
+                          th:classappend="${#fields.hasErrors('descricao')} ? 'is-invalid'"
+                ></textarea>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}">
+                    Erro na descrição
+                </div>
             </div>
 
             <button type="submit" class="btn btn-success">Enviar Denúncia</button>
