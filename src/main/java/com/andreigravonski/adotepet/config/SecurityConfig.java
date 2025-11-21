@@ -27,7 +27,9 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/h2-console/**", "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/", "/home", "/login", "/registro", "/denuncias/denunciar", "/denuncias/denuncia-sucesso").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/", "/home", "/login", "/registro",
+                                "/denuncias/denunciar", "/denuncias/denuncia-sucesso",
+                                "/error").permitAll()
                         .requestMatchers(HttpMethod.POST, "/registro", "/denuncias/denunciar/salvar").permitAll()
                         .anyRequest().authenticated()
                 )

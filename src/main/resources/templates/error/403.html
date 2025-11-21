@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Acesso Negado</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="text-center">
+            <h1 class="display-1 fw-bold text-danger">403</h1>
+            <p class="fs-3"> <span class="text-danger">Acesso Negado!</span></p>
+            <p class="lead">
+                Você não tem permissão para acessar este recurso.
+            </p>
+            <a th:href="@{/dashboard}" class="btn btn-primary">Voltar ao Painel</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

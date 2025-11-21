@@ -4,6 +4,7 @@ import com.andreigravonski.adotepet.model.Cachorro;
 import com.andreigravonski.adotepet.model.ONG;
 import com.andreigravonski.adotepet.repository.CachorroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.andreigravonski.adotepet.specification.CachorroSpecification;
@@ -29,6 +30,7 @@ public class CachorroServiceImpl implements CachorroService {
     }
 
     @Override
+    @PreAuthorize("@ongSecurityService.podeGerenciarCao(authentication, #id)")
     public Cachorro buscarPorId(Long id) {
         return cachorroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cão de ID " + id + " não encontrado!"));
@@ -41,17 +43,14 @@ public class CachorroServiceImpl implements CachorroService {
         if (raca != null && !raca.isBlank()) {
             spec = spec.and(CachorroSpecification.porRaca(raca));
         }
-
-        // --- NOSSA NOVA LÓGICA ---
         if (idade != null) {
             spec = spec.and(CachorroSpecification.porIdadeMaxima(idade));
         }
-        // --- FIM DA NOVA LÓGICA ---
-
         return cachorroRepository.findAll(spec);
     }
 
     @Override
+    @PreAuthorize("#cachorro.id == null or @ongSecurityService.podeGerenciarCao(authentication, #cachorro.id)")
     public void salvar(Cachorro cachorro, MultipartFile imagem) {
         if (imagem != null && !imagem.isEmpty()) {
             String nomeArquivo = fileStorageService.store(imagem);
@@ -61,6 +60,7 @@ public class CachorroServiceImpl implements CachorroService {
     }
 
     @Override
+    @PreAuthorize("@ongSecurityService.podeGerenciarCao(authentication, #id)")
     public void deletarPorId(Long id) {
         cachorroRepository.deleteById(id);
     }
