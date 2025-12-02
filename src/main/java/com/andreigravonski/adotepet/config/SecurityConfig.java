@@ -23,13 +23,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())) // Necessário para o H2 Console
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/h2-console/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/", "/home", "/login", "/registro",
                                 "/denuncias/denunciar", "/denuncias/denuncia-sucesso",
-                                "/error").permitAll()
+                                "/error/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/registro", "/denuncias/denunciar/salvar").permitAll()
                         .anyRequest().authenticated()
                 )

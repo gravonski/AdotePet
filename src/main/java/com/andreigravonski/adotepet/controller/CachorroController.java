@@ -40,13 +40,10 @@ public class CachorroController {
     @GetMapping("/listar")
     public String listarCaes(Model model, Authentication authentication,
                              @RequestParam(value = "raca", required = false) String raca,
-                             @RequestParam(value = "idade", required = false) Integer idade) { // <-- NOVO PARÂMETRO
+                             @RequestParam(value = "idade", required = false) Integer idade) {
 
         ONG ongLogada = (ONG) authentication.getPrincipal();
-
-        // Passe a idade para o serviço
-        List<Cachorro> caesDaOng = cachorroService.buscarCaesFiltrado(ongLogada, raca, idade); // <-- NOVO PARÂMETRO
-
+        List<Cachorro> caesDaOng = cachorroService.buscarCaesFiltrado(ongLogada, raca, idade);
         model.addAttribute("caes", caesDaOng);
         model.addAttribute("racaBusca", raca);
         model.addAttribute("idadeBusca", idade); // <-- Devolve para a view
@@ -70,11 +67,14 @@ public class CachorroController {
     }
 
     @PostMapping("/salvar")
-    public String salvarCao(@ModelAttribute("cao") @Valid Cachorro cachorro, BindingResult bindingResult, RedirectAttributes redirectAttributes,
+    public String salvarCao(@ModelAttribute("cao") @Valid Cachorro cachorro, BindingResult result, RedirectAttributes redirectAttributes,
                             @RequestParam("imagemFile") MultipartFile imagemFile,
-                            Authentication authentication) {
+                            Authentication authentication, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("listaOngs", ongService.buscarONG());
+            return "caes/formulario";
+        }
         try {
-            // Agora passamos o cachorro E o arquivo para o serviço
             cachorroService.salvar(cachorro, imagemFile);
             redirectAttributes.addFlashAttribute("mensagem", "Cão salvo com sucesso!");
             return "redirect:/caes/listar";

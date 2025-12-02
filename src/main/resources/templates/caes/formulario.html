@@ -14,11 +14,17 @@
 
         <div class="mb-3">
             <label for="nome" class="form-label">Nome:</label>
-            <input type="text" id="nome" th:field="*{nome}" class="form-control" />
+            <input type="text" id="nome" th:field="*{nome}" class="form-control" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+                Erro no nome
+            </div>
         </div>
         <div class="mb-3">
             <label for="raca" class="form-label">Raça:</label>
-            <input type="text" id="raca" th:field="*{raca}" class="form-control" />
+            <input type="text" id="raca" th:field="*{raca}" class="form-control" th:classappend="${#fields.hasErrors('raca')} ? 'is-invalid'"/>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('raca')}" th:errors="*{raca}">
+                Erro na raça
+            </div>
         </div>
         <div class="mb-3">
             <label for="idade" class="form-label">Idade:</label>
@@ -26,7 +32,10 @@
         </div>
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição:</label>
-            <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3"></textarea>
+            <textarea id="descricao" th:field="*{descricao}" class="form-control" rows="3" th:classappend="${#fields.hasErrors('descricao')} ? 'is-invalid'"></textarea>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}">
+                Erro na descricao
+            </div>
         </div>
         <div class="mb-3">
             <label for="imagemFile" class="form-label">Foto do Cão:</label>

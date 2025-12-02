@@ -1,6 +1,7 @@
 package com.andreigravonski.adotepet.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,12 @@ public class Cachorro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O nome é obrigatório.")
     private String nome;
 
     private int idade;
 
+    @NotBlank(message = "A raça é obrigatória.")
     private String raca;
 
     @Enumerated(EnumType.STRING) // Boa prática: Salva o nome do status, não o número

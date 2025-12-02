@@ -56,6 +56,12 @@ public class CachorroServiceImpl implements CachorroService {
             String nomeArquivo = fileStorageService.store(imagem);
             cachorro.setFotoUrl(nomeArquivo);
         }
+        else if (cachorro.getId() != null) {
+            Cachorro cachorroExistente = cachorroRepository.findById(cachorro.getId()).orElse(null);
+            if (cachorroExistente != null) {
+                cachorro.setFotoUrl(cachorroExistente.getFotoUrl());
+            }
+        }
         cachorroRepository.save(cachorro);
     }
 
