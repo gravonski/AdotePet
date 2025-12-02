@@ -53,10 +53,14 @@ O projeto foi construído seguindo as melhores práticas de arquitetura MVC e se
 
 O sistema utiliza um banco de dados relacional com as seguintes entidades principais:
 
-```mermaid
-erDiagram
-    ONG ||--o{ CACHORRO : cadastra
+
+    erDiagram
+
+    ONG ||--o{ CACHORRO : cadastra 
+
     ONG ||--o{ DENUNCIA : gerencia
+
+
     
     ONG {
         Long id
@@ -83,45 +87,55 @@ erDiagram
         Enum status
         Long ong_responsavel_id
     }
+---
 
-
-📂 Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 A arquitetura segue o padrão de camadas para garantir a separação de responsabilidades:
 
-controller: Gerencia as requisições HTTP e a navegação.
+- controller: Gerencia as requisições HTTP e a navegação.
 
-service: Contém toda a regra de negócio e validações complexas.
+- service: Contém toda a regra de negócio e validações complexas.
 
-repository: Interface de comunicação com o banco de dados via JPA.
+- repository: Interface de comunicação com o banco de dados via JPA.
 
-model: Entidades que representam as tabelas do banco.
+- model: Entidades que representam as tabelas do banco.
 
-dto: Objetos para transferência de dados seguros.
+- dto: Objetos para transferência de dados seguros.
 
-config: Configurações de segurança, MVC e Uploads.
+- config: Configurações de segurança, MVC e Uploads.
 
-specification: Lógica para filtros de busca dinâmica.
+- specification: Lógica para filtros de busca dinâmica.
 
-exception: Tratamento global de erros.
+- exception: Tratamento global de erros.
 
-💻 Como Executar Localmente:
+  ---
+
+## 💻 Como Executar Localmente:
 
 Clone o repositório
 git clone [https://github.com/gravonski/adotepet.git](https://github.com/gravonski/adotepet.git)
 
 
-Configure o Banco de Dados:
+---
+
+## Configure o Banco de Dados:
 O projeto está configurado para usar PostgreSQL em produção e H2/Postgres localmente.
 
 Verifique o arquivo src/main/resources/application-dev.properties.
 
 
-Execute com Maven:
+---
+
+## Execute com Maven:
 ./mvnw spring-boot:run
 
 
-Acesse:
+---
+
+## Acesse:
 Abra http://localhost:8080 no seu navegador.
 
-Desenvolvido por Andrei Gravonski
+---
+
+> Projeto desenvolvido por **Andrei Gravonski**
